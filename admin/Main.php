@@ -152,22 +152,30 @@ class Main {
 	 * @return array<string, list<array{value: string, label: string}>>
 	 */
 	private function get_models_grouped_by_capability(): array {
-		$capabilities = array(
-			'text_generation'  => 'Text Generation',
-			'image_generation' => 'Image Generation',
-			'vision'           => 'Vision / Multimodal',
+		// AiClient CapabilityEnum has no 'vision' type — all text/vision models are
+		// registered as 'text_generation'. Populate text and vision from the same pool.
+		$capability_map = array(
+			'text_generation'  => array( 'text_generation' ),
+			'image_generation' => array( 'image_generation' ),
+			'vision'           => array( 'text_generation' ),
 		);
 
 		$all_models = $this->get_all_ai_models();
-		$grouped    = array_fill_keys( array_keys( $capabilities ), array() );
+		$grouped    = array_fill_keys( array_keys( $capability_map ), array() );
 
 		foreach ( $all_models as $model ) {
 			foreach ( $model['capabilities'] as $capability ) {
-				if ( isset( $grouped[ $capability ] ) ) {
-					$grouped[ $capability ][] = array(
-						'value' => $model['provider'] . '::' . $model['id'],
-						'label' => $model['label'] . ' (' . $model['provider_label'] . ')',
-					);
+				foreach ( $capability_map as $group_key => $source_caps ) {
+					if ( in_array( $capability, $source_caps, true ) ) {
+						$entry = array(
+							'value' => $model['provider'] . '::' . $model['id'],
+							'label' => $model['label'] . ' (' . $model['provider_label'] . ')',
+						);
+						// Avoid duplicates within the same group.
+						if ( ! in_array( $entry, $grouped[ $group_key ], true ) ) {
+							$grouped[ $group_key ][] = $entry;
+						}
+					}
 				}
 			}
 		}
