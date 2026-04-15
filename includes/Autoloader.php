@@ -83,41 +83,45 @@ class Autoloader {
 		// Remove the base namespace from the class name
 		$relative_class = substr( $class_name, strlen( $this->root_ns ) );
 
-		// Find the appropriate directory for this namespace
-		$file_path = '';
+		// Find the appropriate directory for this namespace.
+		$file_path      = '';
+		$base_directory = $this->plugin_path . 'includes/';
+		$class_file     = str_replace( '\\', '/', $relative_class );
+
 		foreach ( $this->namespace_map as $namespace => $directory ) {
 			if ( strpos( $relative_class, $namespace ) === 0 ) {
-				// Remove the namespace prefix and convert to file path
-				$class_file = substr( $relative_class, strlen( $namespace ) );
-				$class_file = str_replace( '\\', '/', $class_file );
-
-				// Build the full file path
-				$file_path = $this->plugin_path . $directory . $class_file . '.php';
+				// Remove the namespace prefix and convert to file path.
+				$class_file     = substr( $relative_class, strlen( $namespace ) );
+				$class_file     = str_replace( '\\', '/', $class_file );
+				$base_directory = $this->plugin_path . $directory;
+				$file_path      = $base_directory . $class_file . '.php';
 				break;
 			}
 		}
 
-		// If no namespace mapping found, try the default includes directory
+		// If no namespace mapping found, try the default includes directory.
 		if ( empty( $file_path ) ) {
-			$class_file = str_replace( '\\', '/', $relative_class );
-			$file_path  = $this->plugin_path . 'includes/' . $class_file . '.php';
+			$file_path = $base_directory . $class_file . '.php';
 		}
 
-		// Load the file if it exists.
-		if ( file_exists( $file_path ) ) {
-			require_once $file_path;
-			return;
-		}
+		$class_directory          = dirname( $class_file );
+		$class_basename           = basename( $class_file );
+		$lowercase_class_basename = strtolower( $class_basename );
+		$normalized_directory     = '.' === $class_directory ? '' : $class_directory . '/';
+		$lowercase_directory      = '.' === $class_directory ? '' : strtolower( $class_directory ) . '/';
 
-		// Linux hosts are case-sensitive. Some legacy plugin files are stored with a
-		// lowercase basename (for example includes/loader.php), so fall back to that
-		// form when the PSR-4 style filename does not exist.
-		$directory           = dirname( $file_path );
-		$basename            = basename( $file_path );
-		$lowercase_file_path = $directory . '/' . strtolower( $basename );
+		$candidate_paths = array_unique( array(
+			$file_path,
+			$base_directory . $normalized_directory . $lowercase_class_basename . '.php',
+			$base_directory . $lowercase_directory . $class_basename . '.php',
+			$base_directory . $lowercase_directory . $lowercase_class_basename . '.php',
+		) );
 
-		if ( file_exists( $lowercase_file_path ) ) {
-			require_once $lowercase_file_path;
+		foreach ( $candidate_paths as $candidate_path ) {
+			if ( file_exists( $candidate_path ) ) {
+				require_once $candidate_path;
+				return;
+			}
 		}
 	}
 }
