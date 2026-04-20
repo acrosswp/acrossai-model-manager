@@ -1,5 +1,5 @@
 <?php
-namespace Abilities_Model_Selector\Admin;
+namespace AcrossWP_Model_Selector\Admin;
 
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
@@ -11,8 +11,8 @@ defined( 'ABSPATH' ) || exit;
  * @link       https://github.com/AcrossWP/abilities-model-selector
  * @since      0.0.1
  *
- * @package    Abilities_Model_Selector
- * @subpackage Abilities_Model_Selector/admin
+ * @package    AcrossWP_Model_Selector
+ * @subpackage AcrossWP_Model_Selector/admin
  */
 
 /**
@@ -21,8 +21,8 @@ defined( 'ABSPATH' ) || exit;
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Abilities_Model_Selector
- * @subpackage Abilities_Model_Selector/admin
+ * @package    AcrossWP_Model_Selector
+ * @subpackage AcrossWP_Model_Selector/admin
  * @author     WPBoilerplate <contact@wpboilerplate.com>
  */
 class Main {
@@ -75,8 +75,8 @@ class Main {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
-		$this->js_asset_file  = include \ACWP_ABILITIES_MODEL_SELECTOR_PLUGIN_PATH . 'build/js/backend.asset.php';
-		$this->css_asset_file = include \ACWP_ABILITIES_MODEL_SELECTOR_PLUGIN_PATH . 'build/css/backend.asset.php';
+		$this->js_asset_file  = include \ACWP_MODEL_SELECTOR_PLUGIN_PATH . 'build/js/backend.asset.php';
+		$this->css_asset_file = include \ACWP_MODEL_SELECTOR_PLUGIN_PATH . 'build/css/backend.asset.php';
 	}
 
 	/**
@@ -91,13 +91,13 @@ class Main {
 
 		// Global admin stylesheet (includes all settings-page styles from src/scss/backend.scss).
 		$css_deps = $this->css_asset_file['dependencies'];
-		if ( 'settings_page_abilities-model-selector' === $hook ) {
+		if ( 'settings_page_acrosswp-model-selector' === $hook ) {
 			$css_deps = array_unique( array_merge( $css_deps, array( 'wp-components' ) ) );
 		}
-		wp_enqueue_style( $this->plugin_name, \ACWP_ABILITIES_MODEL_SELECTOR_PLUGIN_URL . 'build/css/backend.css', $css_deps, $this->css_asset_file['version'], 'all' );
+		wp_enqueue_style( $this->plugin_name, \ACWP_MODEL_SELECTOR_PLUGIN_URL . 'build/css/backend.css', $css_deps, $this->css_asset_file['version'], 'all' );
 
 		// Settings-page-specific assets.
-		if ( 'settings_page_abilities-model-selector' !== $hook ) {
+		if ( 'settings_page_acrosswp-model-selector' !== $hook ) {
 			return;
 		}
 
@@ -190,18 +190,18 @@ class Main {
 	 */
 	public function enqueue_scripts( string $hook = '' ) {
 
-		wp_enqueue_script( $this->plugin_name, \ACWP_ABILITIES_MODEL_SELECTOR_PLUGIN_URL . 'build/js/backend.js', $this->js_asset_file['dependencies'], $this->js_asset_file['version'], false );
+		wp_enqueue_script( $this->plugin_name, \ACWP_MODEL_SELECTOR_PLUGIN_URL . 'build/js/backend.js', $this->js_asset_file['dependencies'], $this->js_asset_file['version'], false );
 
 		// Inject settings data after the handle is registered (wp_localize_script requires a registered handle).
-		if ( 'settings_page_abilities-model-selector' === $hook ) {
+		if ( 'settings_page_acrosswp-model-selector' === $hook ) {
 			wp_localize_script(
 				$this->plugin_name,
-				'aiamSettings',
+				'acwpModelSelectorSettings',
 				array(
 					'models'      => $this->get_models_grouped_by_capability(),
-					'preferences' => (object) get_option( \Abilities_Model_Selector\Admin\Partials\Menu::OPTION_KEY, array() ),
+					'preferences' => (object) get_option( \AcrossWP_Model_Selector\Admin\Partials\Menu::OPTION_KEY, array() ),
 					'nonce'       => wp_create_nonce( 'wp_rest' ),
-					'optionName'  => \Abilities_Model_Selector\Admin\Partials\Menu::OPTION_KEY,
+					'optionName'  => \AcrossWP_Model_Selector\Admin\Partials\Menu::OPTION_KEY,
 				)
 			);
 		}
@@ -216,8 +216,8 @@ class Main {
 	public function add_settings_link( array $links ): array {
 		$settings_link = sprintf(
 			'<a href="%s">%s</a>',
-			esc_url( admin_url( 'options-general.php?page=abilities-model-selector' ) ),
-			esc_html__( 'Settings', 'abilities-model-selector' )
+			esc_url( admin_url( 'options-general.php?page=acrosswp-model-selector' ) ),
+			esc_html__( 'Settings', 'acrosswp-model-selector' )
 		);
 		array_unshift( $links, $settings_link );
 		return $links;

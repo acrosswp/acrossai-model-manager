@@ -1,5 +1,5 @@
 <?php
-namespace Abilities_Model_Selector\Includes;
+namespace AcrossWP_Model_Selector\Includes;
 
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
@@ -10,8 +10,8 @@ defined( 'ABSPATH' ) || exit;
  * @link       https://github.com/AcrossWP/abilities-model-selector
  * @since      0.0.1
  *
- * @package    Abilities_Model_Selector
- * @subpackage Abilities_Model_Selector/includes
+ * @package    AcrossWP_Model_Selector
+ * @subpackage AcrossWP_Model_Selector/includes
  */
 
 /**
@@ -20,8 +20,8 @@ defined( 'ABSPATH' ) || exit;
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      0.0.1
- * @package    Abilities_Model_Selector
- * @subpackage Abilities_Model_Selector/includes
+ * @package    AcrossWP_Model_Selector
+ * @subpackage AcrossWP_Model_Selector/includes
  * @author     WPBoilerplate <contact@wpboilerplate.com>
  */
 class Activator {

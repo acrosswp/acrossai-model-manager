@@ -1,14 +1,14 @@
 {
-	"name": "abilities-model-selector",
-	"title": "Abilities Model Selector",
-	"description": "Abilities Model Selector by WPBoilerplate.",
-	"homepage": "https://github.com/woocommerce/woocommerce/wiki",
+	"name": "acrosswp-model-selector",
+	"title": "AcrossWP Model Selector",
+	"description": "AcrossWP Model Selector for WordPress.",
+	"homepage": "https://github.com/AcrossWP/abilities-model-selector",
 	"private": true,
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/AcrossWP/abilities-model-selector.git"
 	},
-	"author": "WPBoilerplate",
+	"author": "AcrossWP",
 	"license": "GPL-3.0-or-later",
 	"bugs": {
 		"url": "https://github.com/AcrossWP/abilities-model-selector/issues"
@@ -50,6 +50,6 @@
 		"extends": "@wordpress/stylelint-config/scss"
 	},
 	"keywords": [
-		"abilities-model-selector"
+		"acrosswp-model-selector"
 	]
 }

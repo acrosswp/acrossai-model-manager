@@ -1,5 +1,5 @@
 <?php
-namespace Abilities_Model_Selector\Includes;
+namespace AcrossWP_Model_Selector\Includes;
 
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
@@ -10,8 +10,8 @@ defined( 'ABSPATH' ) || exit;
  * @link       https://github.com/AcrossWP/abilities-model-selector
  * @since      0.0.1
  *
- * @package    Abilities_Model_Selector
- * @subpackage Abilities_Model_Selector/includes
+ * @package    AcrossWP_Model_Selector
+ * @subpackage AcrossWP_Model_Selector/includes
  */
 
 /**
@@ -21,8 +21,8 @@ defined( 'ABSPATH' ) || exit;
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Abilities_Model_Selector
- * @subpackage Abilities_Model_Selector/includes
+ * @package    AcrossWP_Model_Selector
+ * @subpackage AcrossWP_Model_Selector/includes
  * @author     WPBoilerplate <contact@wpboilerplate.com>
  */
 class Loader {
@@ -48,7 +48,7 @@ class Loader {
 	/**
 	 * The single instance of the class.
 	 *
-	 * @var Abilities_Model_Selector_Loader
+	 * @var AcrossWP_Model_Selector_Loader
 	 * @since 0.0.1
 	 */
 	protected static $_instance = null;
@@ -65,14 +65,14 @@ class Loader {
 	}
 
 	/**
-	 * Main Abilities_Model_Selector_Loader Instance.
+	 * Main AcrossWP_Model_Selector_Loader Instance.
 	 *
 	 * Ensures only one instance of WooCommerce is loaded or can be loaded.
 	 *
 	 * @since 0.0.1
 	 * @static
-	 * @see Abilities_Model_Selector_Loader()
-	 * @return Abilities_Model_Selector_Loader - Main instance.
+	 * @see AcrossWP_Model_Selector_Loader()
+	 * @return AcrossWP_Model_Selector_Loader - Main instance.
 	 */
 	public static function instance() {
 		if ( null === self::$_instance ) {

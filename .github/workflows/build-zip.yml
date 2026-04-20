@@ -29,5 +29,5 @@ jobs:
             - name: Upload zip artifact
               uses: actions/upload-artifact@v4
               with:
-                  name: abilities-model-selector
-                  path: abilities-model-selector.zip
+                  name: acrosswp-model-selector
+                  path: acrosswp-model-selector.zip

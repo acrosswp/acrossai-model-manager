@@ -1,5 +1,5 @@
 <?php
-namespace Abilities_Model_Selector\Includes;
+namespace AcrossWP_Model_Selector\Includes;
 
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) || exit;
  * Hooks into WordPress AI filters to override the default model selection.
  *
  * @since 1.0.0
- * @package Abilities_Model_Selector
+ * @package AcrossWP_Model_Selector
  */
 class Model_Preferences {
 
@@ -53,7 +53,7 @@ class Model_Preferences {
 	 * @return array Updated preferred models list.
 	 */
 	private function apply_preference( array $models, string $cap_key ): array {
-		$preferences = (array) get_option( \Abilities_Model_Selector\Admin\Partials\Menu::OPTION_KEY, array() );
+		$preferences = (array) get_option( \AcrossWP_Model_Selector\Admin\Partials\Menu::OPTION_KEY, array() );
 
 		if ( empty( $preferences[ $cap_key ] ) ) {
 			return $models;
@@ -106,6 +106,6 @@ class Model_Preferences {
 			$has_credentials = false;
 		}
 
-		return (bool) apply_filters( 'aiam_has_ai_credentials', $has_credentials, $provider_id );
+		return (bool) apply_filters( 'acwp_model_selector_has_ai_credentials', $has_credentials, $provider_id );
 	}
 }

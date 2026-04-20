@@ -1,11 +1,11 @@
 <?php
 /**
- * Instantiates the Abilities Model Selector plugin
+ * Instantiates the AcrossWP Model Selector plugin
  *
- * @package Abilities_Model_Selector
+ * @package AcrossWP_Model_Selector
  */
 
-namespace Abilities_Model_Selector;
+namespace AcrossWP_Model_Selector;
 
 /**
  * The plugin bootstrap file
@@ -17,18 +17,18 @@ namespace Abilities_Model_Selector;
  *
  * @link              https://github.com/AcrossWP/abilities-model-selector
  * @since             0.0.1
- * @package           Abilities_Model_Selector
+ * @package           AcrossWP_Model_Selector
  *
  * @wordpress-plugin
- * Plugin Name:       Abilities Model Selector
+ * Plugin Name:       AcrossWP Model Selector
  * Plugin URI:        https://github.com/AcrossWP/abilities-model-selector
- * Description:       A WordPress plugin to manage Abilities Model Selector for users, allowing them to select and save their preferred AI models for various tasks.
+ * Description:       A WordPress plugin to manage AcrossWP Model Selector for users, allowing them to select and save their preferred AI models for various tasks.
  * Version:           0.0.1
  * Author:            okpoojagupta
  * Author URI:        https://github.com/AcrossWP/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       abilities-model-selector
+ * Text Domain:       acrosswp-model-selector
  * Domain Path:       /languages
  */
 
@@ -42,14 +42,14 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 0.0.1 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'ACWP_ABILITIES_MODEL_SELECTOR_PLUGIN_FILE', __FILE__ );
+define( 'ACWP_MODEL_SELECTOR_PLUGIN_FILE', __FILE__ );
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/activator.php
  */
-function acwp_abilities_model_selector_activate() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/activator.php';
+function acwp_model_selector_activate() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/Activator.php';
 	Includes\Activator::activate();
 }
 
@@ -57,21 +57,21 @@ function acwp_abilities_model_selector_activate() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/deactivator.php
  */
-function acwp_abilities_model_selector_deactivate() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/deactivator.php';
+function acwp_model_selector_deactivate() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/Deactivator.php';
 	Includes\Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'Abilities_Model_Selector\acwp_abilities_model_selector_activate' );
-register_deactivation_hook( __FILE__, 'Abilities_Model_Selector\acwp_abilities_model_selector_deactivate' );
+register_activation_hook( __FILE__, 'AcrossWP_Model_Selector\acwp_model_selector_activate' );
+register_deactivation_hook( __FILE__, 'AcrossWP_Model_Selector\acwp_model_selector_deactivate' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/main.php';
+require plugin_dir_path( __FILE__ ) . 'includes/Main.php';
 
-use Abilities_Model_Selector\Includes\Main;
+use AcrossWP_Model_Selector\Includes\Main;
 
 /**
  * Begins execution of the plugin.
@@ -82,7 +82,7 @@ use Abilities_Model_Selector\Includes\Main;
  *
  * @since    0.0.1
  */
-function acwp_abilities_model_selector_run() {
+function acwp_model_selector_run() {
 
 	$plugin = Main::instance();
 
@@ -91,4 +91,4 @@ function acwp_abilities_model_selector_run() {
 	 */
 	add_action( 'plugins_loaded', array( $plugin, 'run' ), 0 );
 }
-acwp_abilities_model_selector_run();
+acwp_model_selector_run();

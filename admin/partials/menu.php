@@ -1,19 +1,20 @@
 <?php
-namespace Abilities_Model_Selector\Admin\Partials;
+namespace AcrossWP_Model_Selector\Admin\Partials;
 
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Handles the admin menu and settings page for Abilities Model Selector.
+ * Handles the admin menu and settings page for AcrossWP Model Selector.
  *
  * @since      0.0.1
- * @package    Abilities_Model_Selector\Admin\Partials
+ * @package    AcrossWP_Model_Selector\Admin\Partials
  */
 class Menu {
 
-	const OPTION_KEY = 'aiam_model_preferences';
-	const PAGE_SLUG  = 'abilities-model-selector';
+	const OPTION_KEY        = 'acwp_model_selector_preferences';
+	const LEGACY_OPTION_KEY = 'aiam_model_preferences';
+	const PAGE_SLUG         = 'acrosswp-model-selector';
 
 	/**
 	 * Capability types shown on the settings page.
@@ -54,8 +55,8 @@ class Menu {
 	/** Adds the Settings sub-menu page. */
 	public function add_menu(): void {
 		add_options_page(
-			__( 'Model Selector', 'abilities-model-selector' ),
-			__( 'Model Selector', 'abilities-model-selector' ),
+			__( 'AcrossWP Model Selector', 'acrosswp-model-selector' ),
+			__( 'AcrossWP Model Selector', 'acrosswp-model-selector' ),
 			'manage_options',
 			self::PAGE_SLUG,
 			array( $this, 'render_page' ),
@@ -65,8 +66,10 @@ class Menu {
 
 	/** Registers the settings option (must fire on init to support REST API saves). */
 	public function register_settings(): void {
+		$this->migrate_legacy_preferences();
+
 		register_setting(
-			'aiam_settings_group',
+			'acwp_model_selector_settings_group',
 			self::OPTION_KEY,
 			array(
 				'type'              => 'object',
@@ -125,24 +128,32 @@ class Menu {
 		return $clean;
 	}
 
-
-	/** Renders the settings page — the React app mounts into #aiam-settings-root. */
-
 	/**
-	 * Repositions this menu item directly after the Connectors submenu entry.
-	 *
-	 * Runs on a late admin_menu hook (priority 9999) so all other plugins have
-	 * already registered their pages and the submenu array is fully populated.
+	 * Migrates stored preferences from the legacy option key once.
 	 */
+	private function migrate_legacy_preferences(): void {
+		if ( false !== get_option( self::OPTION_KEY, false ) ) {
+			return;
+		}
+
+		$legacy_preferences = get_option( self::LEGACY_OPTION_KEY, false );
+		if ( false === $legacy_preferences ) {
+			return;
+		}
+
+		update_option( self::OPTION_KEY, $legacy_preferences );
+	}
+
+	/** Renders the settings page — the React app mounts into #acwpms-settings-root. */
 	public function render_page(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to access this page.', 'abilities-model-selector' ) );
+			wp_die( esc_html__( 'You do not have permission to access this page.', 'acrosswp-model-selector' ) );
 		}
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<p class="description"><?php esc_html_e( 'Choose the preferred AI model for each capability type. These selections override the WordPress defaults.', 'abilities-model-selector' ); ?></p>
-			<div id="aiam-settings-root"></div>
+			<p class="description"><?php esc_html_e( 'Choose the preferred AI model for each capability type. These selections override the WordPress defaults.', 'acrosswp-model-selector' ); ?></p>
+			<div id="acwpms-settings-root"></div>
 		</div>
 		<?php
 	}

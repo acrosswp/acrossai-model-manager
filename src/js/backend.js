@@ -18,19 +18,19 @@ const {
 	preferences: initialPreferences = {},
 	nonce,
 	optionName,
-} = window.aiamSettings || {};
+} = window.acwpModelSelectorSettings || {};
 
 apiFetch.use( apiFetch.createNonceMiddleware( nonce ) );
 
 const CAPABILITIES = {
-	text_generation: __( 'Text Generation', 'abilities-model-selector' ),
-	image_generation: __( 'Image Generation', 'abilities-model-selector' ),
-	vision: __( 'Vision / Multimodal', 'abilities-model-selector' ),
+	text_generation: __( 'Text Generation', 'acrosswp-model-selector' ),
+	image_generation: __( 'Image Generation', 'acrosswp-model-selector' ),
+	vision: __( 'Vision / Multimodal', 'acrosswp-model-selector' ),
 };
 
 const DEFAULT_OPTION = {
 	value: '',
-	label: __( '\u2014 Use WordPress Default \u2014', 'abilities-model-selector' ),
+	label: __( '\u2014 Use WordPress Default \u2014', 'acrosswp-model-selector' ),
 };
 
 function SettingsApp() {
@@ -57,14 +57,14 @@ function SettingsApp() {
 			} );
 			setNotice( {
 				type: 'success',
-				message: __( 'Settings saved.', 'abilities-model-selector' ),
+				message: __( 'Settings saved.', 'acrosswp-model-selector' ),
 			} );
 		} catch ( error ) {
 			setNotice( {
 				type: 'error',
 				message:
 					error.message ||
-					__( 'An error occurred while saving.', 'abilities-model-selector' ),
+					__( 'An error occurred while saving.', 'acrosswp-model-selector' ),
 			} );
 		} finally {
 			setIsSaving( false );
@@ -72,22 +72,22 @@ function SettingsApp() {
 	};
 
 	return (
-		<div className="aiam-settings-app">
+		<div className="acwpms-settings-app">
 			{ notice && (
 				<Notice
 					status={ notice.type }
 					isDismissible
 					onRemove={ () => setNotice( null ) }
-					className="aiam-notice"
+					className="acwpms-notice"
 				>
 					{ notice.message }
 				</Notice>
 			) }
 
-			<Card className="aiam-card">
+			<Card className="acwpms-card">
 				<CardHeader>
 					<strong>
-						{ __( 'Model Preferences', 'abilities-model-selector' ) }
+						{ __( 'Model Preferences', 'acrosswp-model-selector' ) }
 					</strong>
 				</CardHeader>
 				<CardBody>
@@ -113,7 +113,7 @@ function SettingsApp() {
 											capModels.length === 0
 												? __(
 														'No configured AI providers found for this capability.',
-														'abilities-model-selector'
+														'acrosswp-model-selector'
 												  )
 												: undefined
 										}
@@ -127,7 +127,7 @@ function SettingsApp() {
 
 			<HStack
 				justify="flex-start"
-				className="aiam-save-row"
+				className="acwpms-save-row"
 			>
 				<Button
 					variant="primary"
@@ -137,8 +137,8 @@ function SettingsApp() {
 					size="compact"
 				>
 					{ isSaving
-						? __( 'Saving\u2026', 'abilities-model-selector' )
-						: __( 'Save Changes', 'abilities-model-selector' ) }
+						? __( 'Saving\u2026', 'acrosswp-model-selector' )
+						: __( 'Save Changes', 'acrosswp-model-selector' ) }
 				</Button>
 			</HStack>
 		</div>
@@ -146,7 +146,7 @@ function SettingsApp() {
 }
 
 function mount() {
-	const rootEl = document.getElementById( 'aiam-settings-root' );
+	const rootEl = document.getElementById( 'acwpms-settings-root' );
 	if ( ! rootEl ) {
 		return;
 	}

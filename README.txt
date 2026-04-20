@@ -1,4 +1,4 @@
-=== Abilities Model Selector ===
+=== AcrossWP Model Selector ===
 Contributors: okpoojagupta, acrosswp
 Donate link: https://github.com/AcrossWP/abilities-model-selector
 Tags: ai, connectors, models, manager, preferences, abilities
@@ -13,7 +13,7 @@ Choose your preferred AI model for text generation, image generation, and vision
 
 == Description ==
 
-Abilities Model Selector gives site administrators full control over which AI model WordPress uses for each capability type. By default, WordPress picks the first available model from your configured AI connectors. This plugin adds a settings page under **Settings > Abilities Model Selector** where you can pin a specific model per capability — and that model will always be prioritised.
+AcrossWP Model Selector gives site administrators full control over which AI model WordPress uses for each capability type. By default, WordPress picks the first available model from your configured AI connectors. This plugin adds a settings page under **Settings > AcrossWP Model Selector** where you can pin a specific model per capability — and that model will always be prioritised.
 
 **Capability types supported:**
 
@@ -34,9 +34,9 @@ Manager are stored as a single serialised option in the database and are exposed
 
 == Installation ==
 
-1. Upload the `abilities-model-selector` folder to the `/wp-content/plugins/` directory, or install through the WordPress Plugins screen directly.
+1. Upload the `acrosswp-model-selector` folder to the `/wp-content/plugins/` directory, or install through the WordPress Plugins screen directly.
 2. Activate the plugin through the **Plugins** menu in WordPress.
-3. Go to **Settings > Abilities Model Selector**.
+3. Go to **Settings > AcrossWP Model Selector**.
 4. Choose your preferred model for each capability type from the dropdowns. Only models from configured and connected providers appear.
 5. Click **Save Changes**.
 
@@ -52,7 +52,7 @@ The plugin checks whether the provider is currently connected before applying th
 
 = Where is the preference stored? =
 
-Preferences are stored in the WordPress options table under the key `aiam_model_preferences` as a JSON object with one entry per capability type (e.g. `{"text_generation":"openai::gpt-4o"}`).
+Preferences are stored in the WordPress options table under the key `acwp_model_selector_preferences` as a JSON object with one entry per capability type (e.g. `{"text_generation":"openai::gpt-4o"}`).
 
 = Can I set different models for different capability types? =
 
@@ -64,13 +64,13 @@ Any provider that registers itself with the WordPress AI client registry and exp
 
 == Screenshots ==
 
-1. The Abilities Model Selector settings page showing dropdowns for each capability type.
+1. The AcrossWP Model Selector settings page showing dropdowns for each capability type.
 
 == Changelog ==
 
 = 0.0.1 =
 * Initial release.
-* Settings page with React UI under Settings > Abilities Model Selector.
+* Settings page with React UI under Settings > AcrossWP Model Selector.
 * Per-capability model preference for text generation, image generation, and vision.
 * Integrates with the WordPress AI plugin preference filter hooks.
 * REST API support for seamless save without page reload.

@@ -1,4 +1,4 @@
-# Abilities Model Selector
+# AcrossWP Model Selector
 
 > A WordPress plugin that lets administrators pin a specific AI model for each capability type, overriding the WordPress default model selection.
 
@@ -10,7 +10,7 @@
 
 ## Overview
 
-By default, WordPress picks the first available model from your configured AI connectors. **Abilities Model Selector** adds a settings page under **Settings > Abilities Model Selector** where you can choose a preferred model for each AI capability type. The chosen model is moved to the top of the WordPress candidate list so it is always selected first.
+By default, WordPress picks the first available model from your configured AI connectors. **AcrossWP Model Selector** adds a settings page under **Settings > AcrossWP Model Selector** where you can choose a preferred model for each AI capability type. The chosen model is moved to the top of the WordPress candidate list so it is always selected first.
 
 Supported capability types:
 
@@ -47,7 +47,7 @@ Supported capability types:
    npm install && npm run build
    ```
 4. Activate the plugin via the **Plugins** screen in WordPress.
-5. Go to **Settings > Abilities Model Selector** and choose your preferred model per capability.
+5. Go to **Settings > AcrossWP Model Selector** and choose your preferred model per capability.
 
 ---
 
@@ -66,7 +66,7 @@ Supported capability types:
 ### Project structure
 
 ```
-abilities-model-selector/
+acrosswp-model-selector/
 ├── admin/
 │   ├── Main.php                  # Admin enqueue + settings link
 │   └── partials/
@@ -86,7 +86,7 @@ abilities-model-selector/
 │       └── backend.scss          # Admin styles
 ├── build/                        # Compiled assets (git-ignored)
 ├── languages/                    # Translation files
-├── abilities-model-selector.php      # Plugin entry point
+├── acrosswp-model-selector.php      # Plugin entry point
 ├── composer.json
 ├── package.json
 └── webpack.config.js
@@ -102,11 +102,11 @@ add_filter( 'wpai_preferred_image_models',  [ $model_prefs, 'filter_image_models
 add_filter( 'wpai_preferred_vision_models', [ $model_prefs, 'filter_vision_models' ], 1000 );
 ```
 
-When a preference is saved, `Model_Preferences` reads the `aiam_model_preferences` option, checks the provider is connected, and prepends the preferred `[provider, model_id]` pair to the models array so WordPress selects it first.
+When a preference is saved, `Model_Preferences` reads the `acwp_model_selector_preferences` option, checks the provider is connected, and prepends the preferred `[provider, model_id]` pair to the models array so WordPress selects it first.
 
 ### Settings storage
 
-Preferences are stored as a JSON object in the WordPress options table under the key `aiam_model_preferences`:
+Preferences are stored as a JSON object in the WordPress options table under the key `acwp_model_selector_preferences`:
 
 ```json
 {
@@ -138,7 +138,7 @@ Yes. Text generation, image generation, and vision are each configured independe
 ### 0.0.1
 
 - Initial release
-- React-powered settings UI under Settings > Abilities Model Selector
+- React-powered settings UI under Settings > AcrossWP Model Selector
 - Per-capability model preference for text generation, image generation, and vision
 - Integrates with WordPress AI plugin preference filter hooks
 - REST API support for save without page reload
