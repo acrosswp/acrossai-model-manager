@@ -5,7 +5,7 @@ Tags: ai, models, manager, preferences, abilities
 Requires at least: 7.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.0.1
+Stable tag: 0.0.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,7 +29,7 @@ Manager are stored as a single serialised option in the database and are exposed
 
 **Requirements:**
 
-* The [WordPress AI plugin](https://wordpress.org/plugins/ai/) must be installed and active.
+* WordPress 7.0 or higher (required for the built-in AI client).
 * At least one AI connector (e.g. Llama.cpp, Hugging Face, OpenAI via the AI Connectors screen) must be configured.
 
 == Installation ==
@@ -68,6 +68,10 @@ Any provider that registers itself with the WordPress AI client registry and exp
 
 == Changelog ==
 
+= 0.0.2 =
+* Updated requirements: now explicitly requires WordPress 7.0+ (built-in AI client) instead of the separate WordPress AI plugin.
+* Clarified that at least one AI connector must be configured for models to appear.
+
 = 0.0.1 =
 * Initial release.
 * Settings page with React UI under Settings > AcrossAI Model Manager.
@@ -76,6 +80,9 @@ Any provider that registers itself with the WordPress AI client registry and exp
 * REST API support for seamless save without page reload.
 
 == Upgrade Notice ==
+
+= 0.0.2 =
+No database changes — update to reflect the correct WordPress 7.0 requirement.
 
 = 0.0.1 =
 Initial release — no upgrade steps required.
