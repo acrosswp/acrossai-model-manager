@@ -1,7 +1,7 @@
 === AcrossAI Model Manager ===
 Contributors: okpoojagupta
 Donate link: https://github.com/AcrossWP/acrossai-model-manager
-Tags: ai, models, manager, preferences, abilities
+Tags: ai, ai models, model manager, ai logging, wordpress ai
 Requires at least: 7.0
 Tested up to: 7.0
 Requires PHP: 7.4
@@ -9,28 +9,40 @@ Stable tag: 0.0.5
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Choose your preferred AI model for text generation, image generation, and vision tasks, overriding the WordPress default selection.
+Pin your preferred AI model per capability, control the HTTP request timeout, and log every AI generation call — all from one settings page.
 
 == Description ==
 
-AcrossAI Model Manager gives site administrators full control over which AI model WordPress uses for each capability type. By default, WordPress picks the first available model from your configured AI connectors. This plugin adds a settings page under **Settings > AcrossAI Model Manager** where you can pin a specific model per capability — and that model will always be prioritised.
+AcrossAI Model Manager gives site administrators full control over three aspects of the WordPress 7.0 AI client: which model is used per capability, how long requests are allowed to run, and a complete audit log of every AI generation call made on the site.
 
-**Capability types supported:**
+**Model Preferences**
+
+By default, WordPress picks the first available model from your configured AI connectors. This plugin adds a settings page under **Settings > AcrossAI Model Manager** where you can pin a specific model per capability — and that model will always be prioritised.
 
 * **Text Generation** — preferred model for all text-generation tasks
 * **Image Generation** — preferred model for image-generation tasks
 * **Vision / Multimodal** — preferred model for vision and multimodal tasks
 
-**How it works:**
+**HTTP Request Timeout**
 
-The plugin hooks into the WordPress AI model preference filters (`wpai_preferred_text_models`, `wpai_preferred_image_models`, `wpai_preferred_vision_models`). When a preference is saved and the corresponding AI provider is connected, the chosen model is moved to the top of the candidate list so WordPress selects it first.
+Set a site-wide timeout (in seconds) for all `wp_ai_client_prompt()` calls. Works directly with the WordPress 7.0 built-in AI client — no additional plugins required.
 
-Manager are stored as a single serialised option in the database and are exposed to the WordPress REST API, meaning the settings page saves without a full page reload using a React-powered interface.
+**AI Request Logging**
+
+Every successful AI generation call is automatically logged to a dedicated database table. The **Settings > AI Logs** admin page provides a sortable, paginated view of all requests with:
+
+* Provider, model, and capability for each call
+* Full prompt text and response text (expandable detail view)
+* Token usage (prompt, completion, total) and request duration
+* **Source tracking** — which plugin, theme, mu-plugin, or WordPress core file triggered the request, including the file path and line number
+* Configurable log retention (auto-delete logs older than N days via WP-Cron)
+
+Settings are stored as a single serialised option and exposed to the WordPress REST API, so the settings page saves without a full page reload using a React-powered interface.
 
 **Requirements:**
 
 * WordPress 7.0 or higher.
-* The [AI plugin](https://wordpress.org/plugins/ai/) must be installed and activated for Model Preferences to work. Without it, the Model Preferences dropdowns are disabled and no models will appear. You can still use this plugin to set the **HTTP Request Timeout** for the WordPress AI client without the AI plugin.
+* The [AI plugin](https://wordpress.org/plugins/ai/) must be installed and activated for **Model Preferences** to work. Without it, the Model Preferences dropdowns are disabled and no models will appear. The HTTP Request Timeout and AI Logging features work with WordPress 7.0 core directly.
 * At least one AI connector (e.g. Llama.cpp, Hugging Face, OpenAI via the AI Connectors screen) must be configured for Model Preferences to work.
 
 == Installation ==

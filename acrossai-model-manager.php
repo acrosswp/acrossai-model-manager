@@ -22,7 +22,7 @@ namespace AcrossAI_Model_Manager;
  * @wordpress-plugin
  * Plugin Name:       AcrossAI Model Manager
  * Plugin URI:        https://github.com/AcrossWP/acrossai-model-manager
- * Description:       A WordPress plugin to manage AcrossAI Model Manager for users, allowing them to select and save their preferred AI models for various tasks.
+ * Description:       Pin a preferred AI model per capability (text, image, vision), set a global HTTP request timeout, and log every AI generation call with full source tracking.
  * Version:           0.0.5
  * Requires at least: 7.0
  * Author:            okpoojagupta
