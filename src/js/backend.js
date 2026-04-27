@@ -17,7 +17,6 @@ const {
 	preferences: initialPreferences = {},
 	nonce,
 	optionName,
-	aiPluginActive = false,
 	connectorsUrl = '',
 } = window.acaiModelManagerSettings || {};
 
@@ -202,14 +201,14 @@ function SettingsApp() {
 							( group ) => Object.keys( group ).length > 0
 						);
 
-						// Section is disabled when the AI plugin is inactive OR when
-						// it is active but no providers are configured yet.
-						const modelPreferencesDisabled =
-							! aiPluginActive || ! hasAnyProvider;
+						// Section is disabled when no providers with models are available.
+						// PHP only passes models when has_ai_credentials() is true,
+						// so this single check covers both "no plugin" and "no credentials".
+						const modelPreferencesDisabled = ! hasAnyProvider;
 
 						return (
 							<>
-								{ ! aiPluginActive && (
+								{ ! hasAnyProvider && (
 									<Notice
 										status="warning"
 										isDismissible={ false }
@@ -217,24 +216,7 @@ function SettingsApp() {
 									>
 										{ createInterpolateElement(
 											__(
-												'Model Preferences require the AI plugin. Please visit the <a>Connectors screen</a> to install and activate the AI plugin, then return here to configure your preferred models.',
-												'acrossai-model-manager'
-											),
-											{
-												a: <a href={ connectorsUrl } />,
-											}
-										) }
-									</Notice>
-								) }
-								{ aiPluginActive && ! hasAnyProvider && (
-									<Notice
-										status="warning"
-										isDismissible={ false }
-										className="acwpms-notice"
-									>
-										{ createInterpolateElement(
-											__(
-												'No AI providers are configured. Please visit the <a>Connectors screen</a> to add at least one AI provider, then return here to configure your preferred models.',
+												'No AI providers are configured. Please visit the <a>Connectors screen</a> to add and activate at least one AI provider, then return here to configure your preferred models.',
 												'acrossai-model-manager'
 											),
 											{
