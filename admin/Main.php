@@ -204,10 +204,11 @@ class Main {
 
 		// Inject settings data after the handle is registered (wp_localize_script requires a registered handle).
 		if ( 'settings_page_acrossai-model-manager' === $hook ) {
-			// The AI plugin (wordpress.org/plugins/ai) defines WPAI_PLUGIN_FILE on load.
-				// Model Preferences depend on its wpai_preferred_*_models filter hooks,
-				// so we tell the React app whether it is active so the section can be disabled.
-				$ai_plugin_active = defined( 'WPAI_PLUGIN_FILE' );
+			// Use has_ai_credentials() from the AI plugin (WordPress\AI namespace) to
+				// determine whether at least one AI provider has credentials configured.
+				// Fall back to false if the function doesn't exist (AI plugin not active).
+				$ai_plugin_active = function_exists( 'WordPress\\AI\\has_ai_credentials' )
+					&& \WordPress\AI\has_ai_credentials();
 
 				wp_localize_script(
 					$this->plugin_name,
