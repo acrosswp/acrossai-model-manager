@@ -1,24 +1,43 @@
-/.wordpress-org
-
+# Version control
 /.git
 /.github
-
-/node_modules
-
-/src
-
-.gitattributes
-.distignore
+/.gitattributes
 .gitignore
 
-composer.json
-composer.lock
+# WordPress.org assets (screenshots, banners — deployed separately by the action)
+/.wordpress-org
 
+# Dev tooling & config
+/.claude
+/.editorconfig
+/.eslintrc
+/.nvmrc
+/.prettierignore
+/.wp-env.json
+.DS_Store
+
+# Build pipeline
+/node_modules
+/src
+webpack.config.js
 package.json
 package-lock.json
 
+# PHP tooling
+composer.json
+composer.lock
+phpcs.xml.dist
+phpstan.neon.dist
+
+# Docs / internal
+/docs
+agents.md
+claude.md
 README.md
+LICENSE.md
 
-webpack.config.js
-
+# CI
 .travis.yml
+
+# This file itself
+.distignore
