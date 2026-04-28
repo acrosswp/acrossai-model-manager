@@ -91,13 +91,13 @@ class Main {
 
 		// Global admin stylesheet (includes all settings-page styles from src/scss/backend.scss).
 		$css_deps = $this->css_asset_file['dependencies'];
-		if ( 'settings_page_acrossai-model-manager' === $hook ) {
+		if ( 'toplevel_page_acrossai-model-manager' === $hook ) {
 			$css_deps = array_unique( array_merge( $css_deps, array( 'wp-components' ) ) );
 		}
 		wp_enqueue_style( $this->plugin_name, \ACAI_MODEL_MANAGER_PLUGIN_URL . 'build/css/backend.css', $css_deps, $this->css_asset_file['version'], 'all' );
 
 		// Settings-page-specific assets.
-		if ( 'settings_page_acrossai-model-manager' !== $hook ) {
+		if ( 'toplevel_page_acrossai-model-manager' !== $hook ) {
 			return;
 		}
 
@@ -203,7 +203,7 @@ class Main {
 		wp_enqueue_script( $this->plugin_name, \ACAI_MODEL_MANAGER_PLUGIN_URL . 'build/js/backend.js', $this->js_asset_file['dependencies'], $this->js_asset_file['version'], false );
 
 		// Inject settings data after the handle is registered (wp_localize_script requires a registered handle).
-		if ( 'settings_page_acrossai-model-manager' === $hook ) {
+		if ( 'toplevel_page_acrossai-model-manager' === $hook ) {
 			// Warm up provider transients (e.g. llama.cpp) before checking credentials.
 			// Some providers only signal availability via wpai_has_ai_credentials after
 			// their model list has been fetched at least once.
